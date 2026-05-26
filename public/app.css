@@ -30576,6 +30576,115 @@ button[type=submit],
     justify-content: center;
   }
 }
+/* Products No-JS Fallback */
+.stronger-products-section {
+  position: relative;
+}
+.stronger-products-fallback {
+  padding: 18px 0;
+}
+.stronger-section-header {
+  margin-bottom: 18px;
+}
+.stronger-section-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1f1a17;
+  color: var(--stronger-dark);
+  margin-bottom: 6px;
+}
+.stronger-section-header p {
+  font-size: 14px;
+  color: rgba(31, 26, 23, 0.72);
+  line-height: 1.8;
+}
+.stronger-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-gap: 16px;
+  gap: 16px;
+}
+.stronger-product-card {
+  border: 1px solid rgba(122, 75, 43, 0.15);
+  border: 1px solid var(--stronger-border);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(31, 26, 23, 0.05);
+}
+.stronger-product-card__image {
+  display: block;
+  aspect-ratio: 1/1;
+  background: #fffaf4;
+  background: var(--stronger-light);
+  overflow: hidden;
+}
+.stronger-product-card__image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+}
+.stronger-product-card__content {
+  padding: 12px;
+}
+.stronger-product-card__title {
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 46px;
+  margin-bottom: 8px;
+}
+.stronger-product-card__title a {
+  color: #1f1a17;
+  color: var(--stronger-dark);
+}
+.stronger-product-card__price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.stronger-product-card__price strong {
+  color: #7a4b2b;
+  color: var(--stronger-primary);
+  font-size: 15px;
+}
+.stronger-product-card__price span {
+  color: #777;
+  font-size: 13px;
+  -webkit-text-decoration: line-through;
+  text-decoration: line-through;
+}
+.stronger-products-more {
+  margin-top: 18px;
+  text-align: center;
+}
+.stronger-products-more a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(122, 75, 43, 0.15);
+  border: 1px solid var(--stronger-border);
+  border-radius: 999px;
+  padding: 9px 22px;
+  color: #7a4b2b;
+  color: var(--stronger-primary);
+  font-weight: 700;
+}
+@media (max-width: 1024px) {
+  .stronger-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .stronger-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stronger-section-header h2 {
+    font-size: 20px;
+  }
+}
 .before\:text-orange-300::before{
     content: var(--tw-content);
     --tw-text-opacity: 1;
