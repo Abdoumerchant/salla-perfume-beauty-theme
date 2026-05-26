@@ -91,11 +91,67 @@
             --color-primary-reverse: {{ theme.color.reverse_text }};
         }
     </style>
+    {# Stronger Theme - Global Schema Markup #}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": {{ (store.url ~ '#organization')|json_encode|raw }},
+          "name": {{ store.name|json_encode|raw }},
+          "url": {{ store.url|json_encode|raw }},
+          "logo": {{ store.logo|json_encode|raw }},
+          "description": {{ store.description|default(store.name)|striptags|json_encode|raw }}
+          {% if store.contacts.email or store.contacts.mobile or store.contacts.phone or store.contacts.whatsapp %},
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "customer support"
+              {% if store.contacts.email %},
+              "email": {{ store.contacts.email|json_encode|raw }}
+              {% endif %}
+              {% if store.contacts.mobile or store.contacts.phone or store.contacts.whatsapp %},
+              "telephone": {{ (store.contacts.mobile|default(store.contacts.phone)|default(store.contacts.whatsapp))|json_encode|raw }}
+              {% endif %},
+              "areaServed": "SA",
+              "availableLanguage": ["ar", "en"]
+            }
+          ]
+          {% endif %}
+          {% if store.social.instagram or store.social.twitter or store.social.facebook or store.social.youtube or store.social.snapchat or store.social.whatsapp %},
+          "sameAs": [
+            {% set social_links = [] %}
+            {% if store.social.instagram %}{% set social_links = social_links|merge([store.social.instagram]) %}{% endif %}
+            {% if store.social.twitter %}{% set social_links = social_links|merge([store.social.twitter]) %}{% endif %}
+            {% if store.social.facebook %}{% set social_links = social_links|merge([store.social.facebook]) %}{% endif %}
+            {% if store.social.youtube %}{% set social_links = social_links|merge([store.social.youtube]) %}{% endif %}
+            {% if store.social.snapchat %}{% set social_links = social_links|merge([store.social.snapchat]) %}{% endif %}
+            {% if store.social.whatsapp %}{% set social_links = social_links|merge([store.social.whatsapp]) %}{% endif %}
+            {% for link in social_links %}
+              {{ link|json_encode|raw }}{{ not loop.last ? ',' : '' }}
+            {% endfor %}
+          ]
+          {% endif %}
+        },
+        {
+          "@type": "WebSite",
+          "@id": {{ (store.url ~ '#website')|json_encode|raw }},
+          "url": {{ store.url|json_encode|raw }},
+          "name": {{ store.name|json_encode|raw }},
+          "publisher": {
+            "@id": {{ (store.url ~ '#organization')|json_encode|raw }}
+          },
+          "inLanguage": {{ language.code|json_encode|raw }}
+        }
+      ]
+    }
+    </script>
+
     {# tracking services, custom css feature. #}
     {% hook 'head:end' %}
 </head>
-<body id="app" class="theme-raed overflow-x-hidden {% hook 'body:classes' %}
-  {{ theme.settings.get('footer_is_dark') ? ' footer-is-dark' : ' footer-is-light' }}
+<body id="app" class="stronger-theme overflow-x-hidden {% hook 'body:classes' %}  {{ theme.settings.get('footer_is_dark') ? ' footer-is-dark' : ' footer-is-light' }}
   {{ theme.settings.get('topnav_is_dark') ? ' topnav-is-dark' : '' }}
   {{ theme.settings.get('sticky_add_to_cart') ? ' is-sticky-product-bar' : '' }}
   ">
