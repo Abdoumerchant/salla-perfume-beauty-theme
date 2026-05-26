@@ -8,28 +8,84 @@
 | position              | Int       | Sorting number start from zero                                   |
 | limit                 | int       | Number of products to be shown                                   |
 #}
+
 {% set is_vertical = theme.settings.get('vertical_fixed_products', true) %}
-<section class="s-block container">
+
+<section class="s-block container stronger-products-section">
     {% if title %}
-      <div class="s-block__title">
-        <div class="right-side">
-          <h2>{{ title }}</h2>
-          {# <p>عنوان فرعي توصيفي صغير</p> #}
+        <div class="s-block__title stronger-section-header">
+            <div class="right-side">
+                <h2>{{ title }}</h2>
+                {# <p>عنوان فرعي توصيفي صغير</p> #}
+            </div>
+
+            {% if display_all_url %}
+                <a href="{{ display_all_url }}" class="s-block__display-all">
+                    {{ trans('blocks.home.display_all') }}
+                    <i class="sicon-arrow-left"></i>
+                </a>
+            {% endif %}
         </div>
-        {% if display_all_url %}
-            <a href="{{ display_all_url }}" class="s-block__display-all">{{ trans('blocks.home.display_all') }} <i class="sicon-arrow-left"></i></a>
-        {% endif %}
-      </div>
     {% endif %}
 
+    {# JS/Web Components version #}
     <salla-products-list
-      source="{{ products.source }}"
-      limit="{{ limit }}"
-      source-value="{{ products.source_value|json_encode }}"
-      class="{{is_vertical ? 'vertical-products' : 'horizontal-products'}}"
-      {{is_vertical ? '' : 'horizontal-cards'}}
-      >
+            source="{{ products.source }}"
+            limit="{{ limit }}"
+            source-value="{{ products.source_value|json_encode }}"
+            class="{{ is_vertical ? 'vertical-products' : 'horizontal-products' }}"
+            {{ is_vertical ? '' : 'horizontal-cards' }}>
     </salla-products-list>
+
+    {# No-JS fallback for crawlers/users without JavaScript #}
+    {% if products|length %}
+        <noscript>
+            <div class="stronger-products-fallback">
+                {% if title %}
+                    <div class="stronger-section-header">
+                        <h2>{{ title }}</h2>
+                    </div>
+                {% endif %}
+
+                <div class="stronger-products-grid">
+                    {% for product in products|slice(0, limit|default(8)) %}
+                        <article class="stronger-product-card">
+                            <a href="{{ product.url }}" class="stronger-product-card__image" aria-label="{{ product.name }}">
+                                {% if product.image.url %}
+                                    <img src="{{ product.image.url }}"
+                                         alt="{{ product.image.alt|default(product.name) }}"
+                                         loading="lazy">
+                                {% endif %}
+                            </a>
+
+                            <div class="stronger-product-card__content">
+                                <h3 class="stronger-product-card__title">
+                                    <a href="{{ product.url }}">{{ product.name }}</a>
+                                </h3>
+
+                                {% if product.is_on_sale %}
+                                    <div class="stronger-product-card__price">
+                                        <strong>{{ product.sale_price|money }}</strong>
+                                        <span>{{ product.regular_price|money }}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="stronger-product-card__price">
+                                        <strong>{{ product.price|money }}</strong>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+
+                {% if display_all_url %}
+                    <div class="stronger-products-more">
+                        <a href="{{ display_all_url }}">
+                            {{ trans('blocks.home.display_all') }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </noscript>
+    {% endif %}
 </section>
-
-
