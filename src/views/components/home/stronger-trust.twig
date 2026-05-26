@@ -1,0 +1,35 @@
+<section class="container stronger-trust-row" aria-label="{{ component.title ?: 'مزايا المتجر' }}">
+    {% if component.items|length %}
+        {% for item in component.items %}
+            <div class="stronger-trust-item">
+                {% if item.icon %}
+                    <i class="{{ item.icon }}" aria-hidden="true"></i>
+                {% endif %}
+
+                {% if item.title %}
+                    <span>{{ item.title }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="stronger-trust-item">
+            <i class="sicon-shield-check" aria-hidden="true"></i>
+            <span>منتجات أصلية وموثوقة</span>
+        </div>
+
+        <div class="stronger-trust-item">
+            <i class="sicon-shipping-fast" aria-hidden="true"></i>
+            <span>تجهيز خلال 1-2 يوم عمل</span>
+        </div>
+
+        <div class="stronger-trust-item">
+            <i class="sicon-credit-card" aria-hidden="true"></i>
+            <span>دفع آمن وموثوق</span>
+        </div>
+
+        <div class="stronger-trust-item">
+            <i class="sicon-return-box" aria-hidden="true"></i>
+            <span>سياسة استرجاع واضحة</span>
+        </div>
+    {% endif %}
+</section>
