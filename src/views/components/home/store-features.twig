@@ -7,16 +7,25 @@
 | items[].text  | string | Subtitle for the feature                                         |
 | position      | Int    | Sorting number start from zero                                   |
 #}
-<section class="s-block s-block--features container">
-    <div class="grid grid-cols-[repeat(2,minmax(0,1fr))] md:grid-cols-[repeat(3,minmax(0,1fr))] gap-4 sm:gap-6 xl:gap-8">
-      {% for item in items %}
-          <div class="s-block--features__item">
-            <div class="feature-icon">
-              <i class="{{ item.icon }}"></i>
+
+<section class="s-block s-block--features container stronger-store-features" aria-label="مزايا المتجر">
+    <div class="stronger-store-features__grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 xl:gap-8">
+        {% for item in items %}
+            <div class="s-block--features__item stronger-store-feature">
+                <div class="feature-icon stronger-store-feature__icon">
+                    {% if item.icon %}
+                        <i class="{{ item.icon }}" aria-hidden="true"></i>
+                    {% endif %}
+                </div>
+
+                {% if item.title %}
+                    <h2>{{ item.title }}</h2>
+                {% endif %}
+
+                {% if item.text %}
+                    <p>{{ item.text }}</p>
+                {% endif %}
             </div>
-            <h2>{{ item.title }}</h2>
-            <p>{{ item.text }}</p>
-          </div>
-      {% endfor %}
+        {% endfor %}
     </div>
 </section>
