@@ -4,10 +4,50 @@
 | products        | Products[] |                                |
 | position        | Int        | Sorting number start from zero |
 #}
-<section class="s-block s-block--latest-products container mt-6 sm:mt-8">
-    <div class="s-block__title">
-      <h2>{{ trans('blocks.home.latest_products') }}</h2>
+
+<section class="s-block s-block--latest-products container mt-6 sm:mt-8 stronger-products-section">
+    <div class="s-block__title stronger-section-header">
+        <h2>{{ trans('blocks.home.latest_products') }}</h2>
     </div>
-    
+
+    {# JS/Web Components version #}
     <salla-products-list source="latest"></salla-products-list>
-</section> 
+
+    {# No-JS fallback for crawlers/users without JavaScript #}
+    {% if products|length %}
+        <noscript>
+            <div class="stronger-products-fallback">
+                <div class="stronger-products-grid">
+                    {% for product in products %}
+                        <article class="stronger-product-card">
+                            <a href="{{ product.url }}" class="stronger-product-card__image" aria-label="{{ product.name }}">
+                                {% if product.image.url %}
+                                    <img src="{{ product.image.url }}"
+                                         alt="{{ product.image.alt|default(product.name) }}"
+                                         loading="lazy">
+                                {% endif %}
+                            </a>
+
+                            <div class="stronger-product-card__content">
+                                <h3 class="stronger-product-card__title">
+                                    <a href="{{ product.url }}">{{ product.name }}</a>
+                                </h3>
+
+                                {% if product.is_on_sale %}
+                                    <div class="stronger-product-card__price">
+                                        <strong>{{ product.sale_price|money }}</strong>
+                                        <span>{{ product.regular_price|money }}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="stronger-product-card__price">
+                                        <strong>{{ product.price|money }}</strong>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </noscript>
+    {% endif %}
+</section>
