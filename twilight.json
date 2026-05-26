@@ -1,10 +1,10 @@
 {
     "name": {
-        "ar": "رائد",
-        "en": "Theme Raed"
+        "ar": "سترونجر",
+        "en": "Stronger Theme"
     },
-    "repository": "https://github.com/SallaApp/theme-raed",
-    "author_email": "support@salla.sa",
+    "repository": "https://github.com/Abdoumerchant/salla-perfume-beauty-theme",
+    "author_email": "abdelmoutalib.belmecheri@gmail.com",
     "features": [
         "mega-menu",
         "fonts",
@@ -1095,9 +1095,9 @@
             ]
         }
     ],
-    "support_url": "https://salla.com/",
+    "support_url": "https://github.com/Abdoumerchant/salla-perfume-beauty-theme",
     "description": {
-        "ar": "مجموعة كبيرة من المزايا لدعم تجارتك وتقديم تجربة تسوق مثيرة لعملائك",
-        "en": "A wide range of features to support your business and provide an exciting shopping experience for your customers"
+        "ar": "ثيم احترافي متطور لمتاجر العطور، التجميل، العناية، والمنتجات الرقمية، مصمم لتحسين تجربة التسوق وإبراز الثقة والمنتجات بشكل أنيق.",
+        "en": "A premium Salla theme for perfumes, beauty, skincare, cosmetics, and digital products, built to improve shopping experience, trust, and product presentation."
     }
 }
