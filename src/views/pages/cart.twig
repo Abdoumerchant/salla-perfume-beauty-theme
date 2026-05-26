@@ -76,6 +76,32 @@
             </div>
         </section>
 
+        <section class="stronger-checkout-steps" aria-label="خطوات إتمام الطلب">
+            <div class="stronger-checkout-step is-active">
+                <span>1</span>
+                <b>السلة</b>
+                <small>مراجعة المنتجات</small>
+            </div>
+
+            <div class="stronger-checkout-step">
+                <span>2</span>
+                <b>البيانات</b>
+                <small>العنوان والتواصل</small>
+            </div>
+
+            <div class="stronger-checkout-step">
+                <span>3</span>
+                <b>الشحن</b>
+                <small>اختيار طريقة التوصيل</small>
+            </div>
+
+            <div class="stronger-checkout-step">
+                <span>4</span>
+                <b>الدفع</b>
+                <small>إتمام الطلب بأمان</small>
+            </div>
+        </section>
+
         <salla-conditional-offer></salla-conditional-offer>
 
         <div class="pt-5 flex flex-col items-start lg:flex-row pb-6 lg:pb-20">
@@ -287,6 +313,12 @@
                             <b data-cart-total>{{ cart.total|money }}</b>
                         </div>
 
+                        <div class="stronger-cart-payments" aria-label="وسائل الدفع المتاحة">
+                            <h3>وسائل الدفع المتاحة</h3>
+                            <salla-payments></salla-payments>
+                            <p>تتم عمليات الدفع عبر بوابات آمنة ومعتمدة، ولا يتم تخزين بيانات البطاقات البنكية داخل المتجر.</p>
+                        </div>
+
                         <div class="stronger-cart-summary__trust" aria-label="معلومات الأمان قبل الدفع">
                             <div>
                                 <i class="sicon-lock" aria-hidden="true"></i>
@@ -309,6 +341,29 @@
                                 <i class="sicon-return-box" aria-hidden="true"></i>
                                 <span>تخضع عمليات الاسترجاع والاستبدال لسياسة المتجر.</span>
                             </div>
+                        </div>
+
+                        <div class="stronger-after-order-box" aria-label="ماذا يحدث بعد إتمام الطلب">
+                            <h3>ماذا يحدث بعد إتمام الطلب؟</h3>
+
+                            <ul>
+                                <li>
+                                    <i class="sicon-check-circle" aria-hidden="true"></i>
+                                    <span>يصلك تأكيد الطلب ورقم مرجعي للمتابعة.</span>
+                                </li>
+                                <li>
+                                    <i class="sicon-packed-box" aria-hidden="true"></i>
+                                    <span>يتم تجهيز الطلب حسب نوع المنتج وحالة توفره.</span>
+                                </li>
+                                <li>
+                                    <i class="sicon-shipping-fast" aria-hidden="true"></i>
+                                    <span>تظهر تفاصيل الشحن أو التسليم قبل/بعد إتمام الطلب حسب إعدادات المتجر.</span>
+                                </li>
+                                <li>
+                                    <i class="sicon-mail-letter" aria-hidden="true"></i>
+                                    <span>يمكنك التواصل مع الدعم الرسمي لأي استفسار.</span>
+                                </li>
+                            </ul>
                         </div>
 
                         <div class="cart-submit-wrap">
