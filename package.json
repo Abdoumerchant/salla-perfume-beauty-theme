@@ -1,11 +1,11 @@
 {
-  "name": "theme-raed",
-  "version": "1.0.3",
-  "description": "Salla Theme",
+  "name": "stronger-theme",
+  "version": "1.0.0",
+  "description": "Premium Salla theme for perfumes, beauty, cosmetics, skincare, and digital products.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SallaApp/theme-raed.git"
+    "url": "git+https://github.com/Abdoumerchant/salla-perfume-beauty-theme.git"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -15,7 +15,7 @@
     "development": "webpack --mode development",
     "watch": "webpack --mode development --watch"
   },
-  "author": "Salla",
+  "author": "Abdoumerchant",
   "dependencies": {
     "@babel/runtime": "^7.28.6",
     "animejs": "^3.2.1",
