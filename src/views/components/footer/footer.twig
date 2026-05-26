@@ -1,72 +1,109 @@
-<footer class="store-footer">
-	<div aria-label="footer" class="store-footer__inner">
-		<div class="container grid grid-col-1 lg:grid-cols-6 gap-8 lg:gap-6">
-			<div class="lg:col-span-2 rtl:lg:pl-20 ltr:lg:pr-20">
-				<a href="{{ link('/') }}" class="flex items-center m-0">
-					<h3>{{store.name}}</h3>
-				</a>
-				{% if store.description %}
-					<div class="max-w-sm leading-6 mb-6">
-						{{ store.description|raw }}
-          </div>
-				{% endif %}
+<footer class="store-footer stronger-footer">
+    <div aria-label="footer" class="store-footer__inner">
+        <div class="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
 
-				<div class="hidden lg:block">
-					<salla-social class="block mb-6"></salla-social>
-				</div>
-
-		<div class="flex gap-4">
-		  {# trust badges #}
-		  <salla-trust-badges {% if theme.settings.get('footer_is_dark') %} dark {% endif %}></salla-trust-badges>
-          {# vat #}
-          {% if store.settings.tax.number %}
-            <div class="flex rtl:space-x-reverse space-x-2 items-end">
-              {% if store.settings.tax.certificate %}
-                <a class="load-img-onclick" data-modal-id="modal-value-tax" href="#/" alt="{{ store.settings.tax.number }}">
-                  <img width="40" height="50" src="{{'images/tax.png' | cdn(70,70)}}" loading="lazy" class="w-10 rounded-sm hover:opacity-80 transition-opacity" alt="value added tax">
+            {# 1) About Store #}
+            <div class="stronger-footer__col stronger-footer__about">
+                <a href="{{ link('/') }}" class="flex items-center m-0 mb-4">
+                    <h3 class="stronger-footer__title">{{ store.name }}</h3>
                 </a>
-              {% endif %}
-              <div>
-                <p class="text-sm text-text-grey mb-1">{{ trans('common.elements.tax_number') }}</p>
-                <b class="text-sm">{{ store.settings.tax.number }}</b>
-              </div>
+
+                {% if store.description %}
+                    <div class="stronger-footer__description max-w-sm leading-7 mb-6">
+                        {{ store.description|raw }}
+                    </div>
+                {% else %}
+                    <div class="stronger-footer__description max-w-sm leading-7 mb-6">
+                        متجر إلكتروني يقدّم تجربة تسوق موثوقة ومنظمة مع خيارات دفع آمنة، شحن واضح، وقنوات دعم لخدمة العملاء.
+                    </div>
+                {% endif %}
+
+                <div class="stronger-footer__trust flex flex-wrap gap-4 items-center">
+                    <salla-trust-badges {% if theme.settings.get('footer_is_dark') %} dark {% endif %}></salla-trust-badges>
+
+                    {% if store.settings.tax.number %}
+                        <div class="stronger-footer__vat flex rtl:space-x-reverse space-x-2 items-end">
+                            {% if store.settings.tax.certificate %}
+                                <a class="load-img-onclick" data-modal-id="modal-value-tax" href="#/" aria-label="{{ store.settings.tax.number }}">
+                                    <img width="40" height="50"
+                                         src="{{ 'images/tax.png' | cdn(70,70) }}"
+                                         loading="lazy"
+                                         class="w-10 rounded-sm hover:opacity-80 transition-opacity"
+                                         alt="value added tax">
+                                </a>
+                            {% endif %}
+
+                            <div>
+                                <p class="text-sm text-text-grey mb-1">{{ trans('common.elements.tax_number') }}</p>
+                                <b class="text-sm">{{ store.settings.tax.number }}</b>
+                            </div>
+                        </div>
+
+                        {% if store.settings.tax.certificate %}
+                            <salla-modal sub-title-first sub-title="{{ trans('common.elements.tax_number') }}" modal-title="{{ store.settings.tax.number }}" id="modal-value-tax">
+                                <div class="flex justify-center max-w-full">
+                                    <img class="w-full"
+                                         loading="lazy"
+                                         data-src="{{ store.settings.tax.certificate }}"
+                                         alt="{{ store.settings.tax.number }}"/>
+                                </div>
+                            </salla-modal>
+                        {% endif %}
+                    {% endif %}
+                </div>
             </div>
 
-            {% if store.settings.tax.certificate %}
-              <salla-modal sub-title-first sub-title="{{ trans('common.elements.tax_number') }}" modal-title="{{ store.settings.tax.number }}" id="modal-value-tax">
-                <div class="flex justify-center max-w-full">
-                  <img class="w-full" loading="lazy"
-                  data-src="{{ store.settings.tax.certificate }}"
-                  alt="{{ store.settings.tax.number }}"/>
+            {# 2) Important Links #}
+            <div class="stronger-footer__col stronger-footer__links">
+                <h3 class="stronger-footer__title">روابط مهمة</h3>
+
+                <div class="stronger-footer__menu">
+                    <salla-menu source="footer" with-cookie-preferences></salla-menu>
                 </div>
-              </salla-modal>
-            {% endif %}
-          {% endif %}
+
+                <div class="stronger-footer__policy-note mt-5 text-sm leading-6 opacity-80">
+                    ننصح بالاطلاع على سياسات الشحن، الاسترجاع، الخصوصية، والشروط والأحكام قبل إتمام الطلب.
+                </div>
+            </div>
+
+            {# 3) Support Channels #}
+            <div class="stronger-footer__col stronger-footer__support">
+                <h3 class="stronger-footer__title">قنوات الدعم</h3>
+
+                <div class="stronger-footer__contacts mb-5">
+                    <salla-contacts></salla-contacts>
+                </div>
+
+                <div class="stronger-footer__support-note text-sm leading-6 mb-5 opacity-80">
+                    فريق خدمة العملاء متاح للرد على الاستفسارات، متابعة الطلبات، وطلبات ما بعد البيع عبر القنوات الرسمية للمتجر.
+                </div>
+
+                <div class="stronger-footer__social">
+                    <salla-social></salla-social>
+                </div>
+            </div>
+
+            {# 4) Available Payments #}
+            <div class="stronger-footer__col stronger-footer__payments">
+                <h3 class="stronger-footer__title">وسائل الدفع المتاحة</h3>
+
+                <div class="stronger-footer__payments-box">
+                    <salla-payments></salla-payments>
+                </div>
+
+                <div class="stronger-footer__payment-note mt-5 text-sm leading-6 opacity-80">
+                    يتم تنفيذ عمليات الدفع عبر بوابات دفع آمنة ومعتمدة، ولا يحتفظ المتجر ببيانات البطاقات البنكية.
+                </div>
+
+                <div class="stronger-footer__apps mt-6">
+                    <salla-apps-icons></salla-apps-icons>
+                </div>
+            </div>
+
         </div>
-        </div>
+    </div>
 
-			<div>
-				<h3>{{ trans('blocks.footer.pages_links') }}</h3>
-				<salla-menu source="footer" with-cookie-preferences></salla-menu>
-			</div>
-
-			<div>
-				<salla-contacts></salla-contacts>
-
-				<div class="lg:hidden contact-social">
-					<salla-social></salla-social>
-				</div>
-			</div>
-
-			<salla-apps-icons class="lg:col-span-2 rtl:lg:pr-20 ltr:lg:pl-20"></salla-apps-icons>
-
-		</div>
-	</div>
-
-	<div class="md:flex items-center justify-between py-4 container text-center">
-		<span class="text-sm copyright-text">{% hook copyright %}</span>
-		<salla-payments></salla-payments>
-	</div>
-</div>
-
-<span class="hidden bottom-2 rtl:pl-24 ltr:pr-24 md:grid-cols-3 opacity-40"></span></footer>
+    <div class="stronger-footer__bottom md:flex items-center justify-between py-4 container text-center gap-4">
+        <span class="text-sm copyright-text">{% hook copyright %}</span>
+    </div>
+</footer>
