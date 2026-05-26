@@ -16,47 +16,94 @@
 | postion                       | int       | Sorting number starts from zero                                     |
 | is_slider                     | Bool      | Products should be movable or static                                |
 #}
-{% set component_id='featured-products-style2-' ~ position %}
+
+{% set component_id = 'featured-products-style2-' ~ position %}
 {% set is_vertical = theme.settings.get('vertical_fixed_products', true) %}
-<section class="s-block s-block-tabs s-block--tabs-produtcs s-block--full-bg {{ is_slider ? 'as-slider':'as-grid' }} bg-gray-100 py-8 sm:py-16" id="{{ component_id }}">
-  <div class="container">
 
-      {% if items|length > 1 %}
-      <div class="tabs hide-scroll">
-          {% for section in items %}
-              <salla-button 
-                class="tab-trigger {{ loop.first?'is-active':'' }}"
-                data-target="{{ component_id }}-{{ section.id }}"
-                data-component-id="{{ component_id }}"
-                fill="outline">
-                  {{ section.title }}
-              </salla-button>
-          {% endfor %}
-      </div>
-      {% endif %}
+<section class="s-block s-block-tabs s-block--tabs-produtcs s-block--full-bg {{ is_slider ? 'as-slider' : 'as-grid' }} bg-gray-100 py-8 sm:py-16 stronger-products-section" id="{{ component_id }}">
+    <div class="container">
 
-      <div class="tabs-wrapper">
-        {% for section in items %}
-            <div id="{{ component_id }}-{{ section.id }}" class="tabs__item {{ loop.first?'is-active':'' }}">
-                {% if is_slider %}
-                    <salla-products-slider 
-                      slider-id="section-{{ section.id }}-slider" 
-                      source="{{ section.products.source }}"
-                      limit="{{ section.products.limit }}"
-                      source-value="{{ section.products.source_value|json_encode }}"
-                      >
-                    </salla-products-slider>
-                {% else %}
-                    <salla-products-list  
-                      source="{{ section.products.source }}"
-                      limit="{{ section.products.limit }}"
-                      source-value="{{ section.products.source_value|json_encode }}"
-                      {{is_vertical ? '' : 'horizontal-cards'}}
-                      >
-                    </salla-products-list>
-                {% endif %}
+        {% if items|length > 1 %}
+            <div class="tabs hide-scroll">
+                {% for section in items %}
+                    <salla-button
+                            class="tab-trigger {{ loop.first ? 'is-active' : '' }}"
+                            data-target="{{ component_id }}-{{ section.id }}"
+                            data-component-id="{{ component_id }}"
+                            fill="outline">
+                        {{ section.title }}
+                    </salla-button>
+                {% endfor %}
             </div>
-        {% endfor %}
-      </div>
-  </div>
-</section> 
+        {% endif %}
+
+        <div class="tabs-wrapper">
+            {% for section in items %}
+                <div id="{{ component_id }}-{{ section.id }}" class="tabs__item {{ loop.first ? 'is-active' : '' }}">
+                    {% if is_slider %}
+                        <salla-products-slider
+                                slider-id="section-{{ section.id }}-slider"
+                                source="{{ section.products.source }}"
+                                limit="{{ section.products.limit }}"
+                                source-value="{{ section.products.source_value|json_encode }}">
+                        </salla-products-slider>
+                    {% else %}
+                        <salla-products-list
+                                source="{{ section.products.source }}"
+                                limit="{{ section.products.limit }}"
+                                source-value="{{ section.products.source_value|json_encode }}"
+                                {{ is_vertical ? '' : 'horizontal-cards' }}>
+                        </salla-products-list>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        {# No-JS fallback for crawlers/users without JavaScript #}
+        <noscript>
+            <div class="stronger-products-fallback">
+                {% for section in items %}
+                    {% if section.title %}
+                        <div class="stronger-section-header">
+                            <h2>{{ section.title }}</h2>
+                        </div>
+                    {% endif %}
+
+                    {% if section.products|length %}
+                        <div class="stronger-products-grid">
+                            {% for product in section.products|slice(0, section.products.limit|default(section.limit|default(8))) %}
+                                <article class="stronger-product-card">
+                                    <a href="{{ product.url }}" class="stronger-product-card__image" aria-label="{{ product.name }}">
+                                        {% if product.image.url %}
+                                            <img src="{{ product.image.url }}"
+                                                 alt="{{ product.image.alt|default(product.name) }}"
+                                                 loading="lazy">
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="stronger-product-card__content">
+                                        <h3 class="stronger-product-card__title">
+                                            <a href="{{ product.url }}">{{ product.name }}</a>
+                                        </h3>
+
+                                        {% if product.is_on_sale %}
+                                            <div class="stronger-product-card__price">
+                                                <strong>{{ product.sale_price|money }}</strong>
+                                                <span>{{ product.regular_price|money }}</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="stronger-product-card__price">
+                                                <strong>{{ product.price|money }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </noscript>
+
+    </div>
+</section>
