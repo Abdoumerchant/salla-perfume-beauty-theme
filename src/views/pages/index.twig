@@ -6,9 +6,35 @@
 | page.slug        | string     | ex: "cat.show"                                                      |
 #}
 {% extends "layouts.master" %}
+
 {% block content %}
+
+    <section class="container stronger-trust-row" aria-label="مزايا المتجر">
+        <div class="stronger-trust-item">
+            <i class="sicon-shield-check" aria-hidden="true"></i>
+            <span>منتجات أصلية وموثوقة</span>
+        </div>
+
+        <div class="stronger-trust-item">
+            <i class="sicon-shipping-fast" aria-hidden="true"></i>
+            <span>تجهيز خلال 1-2 يوم عمل</span>
+        </div>
+
+        <div class="stronger-trust-item">
+            <i class="sicon-credit-card" aria-hidden="true"></i>
+            <span>دفع آمن وموثوق</span>
+        </div>
+
+        <div class="stronger-trust-item">
+            <i class="sicon-return-box" aria-hidden="true"></i>
+            <span>سياسة استرجاع واضحة</span>
+        </div>
+    </section>
+
     {% component home %}
+
 {% endblock %}
+
 {% block scripts %}
     <script defer src="{{ 'home.js' | asset }}"></script>
 {% endblock %}
