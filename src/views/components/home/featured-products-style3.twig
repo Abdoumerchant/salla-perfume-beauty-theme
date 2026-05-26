@@ -13,30 +13,109 @@
 | items[].id                    | string    | Section id                                                          |
 | position                      | int       | Sorting number starts from zero                                     |
 #}
-<section class="s-block s-block--features-products {% if items | length > 1 %}two-cols{% endif %} container">
+
+<section class="s-block s-block--features-products {% if items|length > 1 %}two-cols{% endif %} container stronger-products-section">
     <div class="inner">
         {% for section in items %}
             <div>
-                <div class="s-block__title">
-                  <h2>{{ section.title }}</h2>
-                  {# <p>عنوان فرعي توصيفي صغير</p> #}
-                </div> 
+                <div class="s-block__title stronger-section-header">
+                    <h2>{{ section.title }}</h2>
+                    {# <p>عنوان فرعي توصيفي صغير</p> #}
+                </div>
+
                 <div class="flex-1 grid lg:grid-cols-2 gap-4 sm:gap-8">
                     {% if section.featured_product %}
-                        <custom-salla-product-card shadow-on-hover product="{{section.featured_product}}" fullImage></custom-salla-product-card>
+                        <custom-salla-product-card shadow-on-hover product="{{ section.featured_product }}" fullImage></custom-salla-product-card>
+
                         <div class="grid gap-4 sm:gap-8">
-                            {% for product in section.products|slice(0,3) %}
-                                <custom-salla-product-card shadow-on-hover product="{{product}}" minimal></custom-salla-product-card>
+                            {% for product in section.products|slice(0, 3) %}
+                                <custom-salla-product-card shadow-on-hover product="{{ product }}" minimal></custom-salla-product-card>
                             {% endfor %}
                         </div>
                     {% else %}
                         {% for product in section.products %}
-                            <custom-salla-product-card shadow-on-hover product="{{product}}" minimal></custom-salla-product-card>
+                            <custom-salla-product-card shadow-on-hover product="{{ product }}" minimal></custom-salla-product-card>
                         {% endfor %}
                     {% endif %}
                 </div>
             </div>
         {% endfor %}
     </div>
+
+    {# No-JS fallback for crawlers/users without JavaScript #}
+    <noscript>
+        <div class="stronger-products-fallback">
+            {% for section in items %}
+                {% if section.title %}
+                    <div class="stronger-section-header">
+                        <h2>{{ section.title }}</h2>
+                    </div>
+                {% endif %}
+
+                {% if section.featured_product %}
+                    <div class="stronger-products-grid stronger-products-grid--featured">
+                        <article class="stronger-product-card stronger-product-card--main">
+                            <a href="{{ section.featured_product.url }}" class="stronger-product-card__image" aria-label="{{ section.featured_product.name }}">
+                                {% if section.featured_product.image.url %}
+                                    <img src="{{ section.featured_product.image.url }}"
+                                         alt="{{ section.featured_product.image.alt|default(section.featured_product.name) }}"
+                                         loading="lazy">
+                                {% endif %}
+                            </a>
+
+                            <div class="stronger-product-card__content">
+                                <h3 class="stronger-product-card__title">
+                                    <a href="{{ section.featured_product.url }}">{{ section.featured_product.name }}</a>
+                                </h3>
+
+                                {% if section.featured_product.is_on_sale %}
+                                    <div class="stronger-product-card__price">
+                                        <strong>{{ section.featured_product.sale_price|money }}</strong>
+                                        <span>{{ section.featured_product.regular_price|money }}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="stronger-product-card__price">
+                                        <strong>{{ section.featured_product.price|money }}</strong>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </article>
+                    </div>
+                {% endif %}
+
+                {% if section.products|length %}
+                    <div class="stronger-products-grid">
+                        {% for product in section.products|slice(0, section.limit|default(8)) %}
+                            <article class="stronger-product-card">
+                                <a href="{{ product.url }}" class="stronger-product-card__image" aria-label="{{ product.name }}">
+                                    {% if product.image.url %}
+                                        <img src="{{ product.image.url }}"
+                                             alt="{{ product.image.alt|default(product.name) }}"
+                                             loading="lazy">
+                                    {% endif %}
+                                </a>
+
+                                <div class="stronger-product-card__content">
+                                    <h3 class="stronger-product-card__title">
+                                        <a href="{{ product.url }}">{{ product.name }}</a>
+                                    </h3>
+
+                                    {% if product.is_on_sale %}
+                                        <div class="stronger-product-card__price">
+                                            <strong>{{ product.sale_price|money }}</strong>
+                                            <span>{{ product.regular_price|money }}</span>
+                                        </div>
+                                    {% else %}
+                                        <div class="stronger-product-card__price">
+                                            <strong>{{ product.price|money }}</strong>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </noscript>
 </section>
- 
