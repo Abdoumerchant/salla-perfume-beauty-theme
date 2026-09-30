@@ -1,0 +1,24 @@
+{% extends "layouts.master" %}
+{% block content %}
+    <div class="container">
+        <nav class="breadcrumbs w-full py-5"><salla-breadcrumb></salla-breadcrumb></nav>
+        <div class="flex justify-center">
+            <div class="w-full lg:w-10/12 bg-white rounded p-6 lg:p-8 mt-4 lg:mt-12">
+                <h1 class="font-bold text-2xl mb-6">نظامك الغذائي المخصص</h1>
+                <form id="diet-form" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <input class="form-input" name="age" type="number" min="10" max="100" placeholder="العمر" required>
+                    <select class="form-input" name="gender" required><option>ذكر</option><option>أنثى</option></select>
+                    <input class="form-input" name="weight" type="number" min="30" max="300" placeholder="الوزن (كغ)" required>
+                    <input class="form-input" name="height" type="number" min="100" max="250" placeholder="الطول (سم)" required>
+                    <select class="form-input" name="activity_level"><option>خامل</option><option>خفيف</option><option selected>متوسط</option><option>نشط جداً</option></select>
+                    <select class="form-input" name="goal"><option>إنقاص الوزن</option><option>الحفاظ</option><option>بناء العضلات</option></select>
+                    <input class="form-input" name="allergies_and_diet" placeholder="حساسية/نظام (نباتي، حساسية ألبان...)">
+                    <input class="form-input" name="health_conditions" placeholder="مشاكل صحية (سكري، ضغط...)">
+                    <button class="btn btn--primary lg:col-span-2" type="submit">احسب نظامي</button>
+                </form>
+                <div id="diet-result" class="mt-8"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<script defer src="{{ 'diet-plan.js' | asset }}"></script>
