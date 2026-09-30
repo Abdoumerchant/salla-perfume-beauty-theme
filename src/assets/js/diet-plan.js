@@ -5,12 +5,32 @@ const out = document.getElementById('diet-result');
 const MEAL_LABELS = { breakfast: 'الفطور', snack_1: 'وجبة خفيفة 1', lunch: 'الغداء', snack_2: 'وجبة خفيفة 2', dinner: 'العشاء' };
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-form?.addEventListener('submit', (e) => {
+// Ask the Claude-backed API when configured; any failure falls back to the local engine.
+async function getPlan(d) {
+    const url = form.dataset.apiUrl;
+    if (url) {
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(d),
+                signal: AbortSignal.timeout(45000),
+            });
+            if (res.ok) return await res.json();
+        } catch (e) { /* use local engine */ }
+    }
+    return buildDietPlan(d);
+}
+
+form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(form));
     ['age', 'weight', 'height'].forEach((k) => (d[k] = parseFloat(d[k])));
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true;
+    out.textContent = 'جاري إعداد نظامك...';
     try {
-        const r = buildDietPlan(d), s = r.user_summary, m = s.macros_grams;
+        const r = await getPlan(d), s = r.user_summary, m = s.macros_grams;
         out.innerHTML = `
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6 text-center">
             <div class="p-4 bg-gray-50 rounded"><b>${s.bmr}</b><br>BMR</div>
@@ -26,5 +46,7 @@ form?.addEventListener('submit', (e) => {
           <p class="text-sm text-gray-500 mt-6">${esc(r.medical_disclaimer)}</p>`;
     } catch (err) {
         out.textContent = err.message;
+    } finally {
+        btn.disabled = false;
     }
 });

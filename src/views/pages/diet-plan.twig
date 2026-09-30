@@ -5,7 +5,8 @@
         <div class="flex justify-center">
             <div class="w-full lg:w-10/12 bg-white rounded p-6 lg:p-8 mt-4 lg:mt-12">
                 <h1 class="font-bold text-2xl mb-6">نظامك الغذائي المخصص</h1>
-                <form id="diet-form" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {# Set data-api-url to the deployed worker URL (see worker/README.md); leave empty to use the built-in calculator. #}
+                <form id="diet-form" data-api-url="" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <input class="form-input" name="age" type="number" min="10" max="100" placeholder="العمر" required>
                     <select class="form-input" name="gender" required><option>ذكر</option><option>أنثى</option></select>
                     <input class="form-input" name="weight" type="number" min="30" max="300" placeholder="الوزن (كغ)" required>

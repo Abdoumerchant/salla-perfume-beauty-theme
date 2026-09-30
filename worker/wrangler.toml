@@ -1,0 +1,11 @@
+name = "diet-api"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+# Store origin allowed to call this API (no trailing slash).
+ALLOWED_ORIGIN = "https://YOUR-STORE.salla.sa"
+# Switch to "claude-sonnet-5-5" for lower cost.
+MODEL = "claude-opus-5-5"
+
+# Secret (never commit): wrangler secret put ANTHROPIC_API_KEY
