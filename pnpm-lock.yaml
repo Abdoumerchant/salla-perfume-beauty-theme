@@ -12,8 +12,8 @@ importers:
         specifier: ^7.28.6
         version: 7.28.6
       animejs:
-        specifier: ^3.2.1
-        version: 3.2.2
+        specifier: ^4.4.1
+        version: 4.4.1
       fslightbox:
         specifier: ^3.7.5
         version: 3.7.5
@@ -1176,6 +1176,9 @@ packages:
 
   animejs@3.2.2:
     resolution: {integrity: sha512-Ao95qWLpDPXXM+WrmwcKbl6uNlC5tjnowlaRYtuVDHHoygjtIPfDUoK9NthrlZsQSKjZXlmji2TrBUAVbiH0LQ==}
+
+  animejs@4.4.1:
+    resolution: {integrity: sha512-XimhJw4vPb6tAd6Zaoa6BaspJ8UteQMKvL7Pvrt6MW/6u2UvJs0TB/LLqR1sigaiYvpVPC3Tokr9emcCMhWFhw==}
 
   ansi-styles@4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
@@ -4268,6 +4271,8 @@ snapshots:
       - '@types/dlv'
 
   animejs@3.2.2: {}
+
+  animejs@4.4.1: {}
 
   ansi-styles@4.3.0:
     dependencies:
