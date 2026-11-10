@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ذائقة — اكتشف عطرك</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<div class="demo-bar">مساحة للتجربة · جميع العطور والأسعار بيانات افتراضية</div>
+<header><a class="brand" href="#" aria-label="ذائقة الرئيسية">ذائقة<span>دليلك إلى العطر الأقرب لك</span></a><div class="store-picker"><label for="store">المتجر التجريبي</label><select id="store"></select></div></header>
+<main>
+<section class="intro"><div class="eyebrow"><span></span> تجربة اكتشاف شخصية</div><h1>لكل ذائقة،<br><em>عطر يحكيها.</em></h1><p>ثلاثة اختيارات بسيطة، وثلاثة عطور أقرب إليك.<br>دعنا نبدأ بما تحب.</p><div class="intro-foot"><span>01 — اختر</span><span>02 — اكتشف</span><span>03 — تعرّف على عطرك</span></div><div class="hero-art" aria-hidden="true"><div class="halo"></div><div class="bottle hero-bottle"><div class="cap"></div><div class="glass"><span>ذائقة<small>EAU DE PARFUM<br>50 ML</small></span></div></div><span class="art-caption">YOUR SCENT. YOUR STORY.</span></div></section>
+<section class="finder" aria-labelledby="finder-title"><div class="section-heading"><div><span class="eyebrow">ملفك العطري</span><h2 id="finder-title">ما العطر الذي تبحث عنه؟</h2></div><span id="progress">٠ / ٣</span></div><form id="preferences">
+<fieldset><legend><b>١</b> جنس العطر</legend><div class="choices genders" id="gender-options"></div></fieldset>
+<fieldset><legend><b>٢</b> العائلة العطرية <small>اختر الرائحة الأقرب لذوقك</small></legend><div class="choices families" id="family-options"></div></fieldset>
+<fieldset><legend><b>٣</b> متى ستستخدمه؟</legend><div class="choices occasions" id="occasion-options"></div></fieldset>
+<div class="form-footer"><p>مطابقة حسب خصائص العطور وتفضيلاتك.<br><small>نسخة أولية بمحرك قواعد، دون اتصال بخدمة ذكاء اصطناعي.</small></p><button class="primary" type="submit">اكتشف ترشيحاتي <span>←</span></button></div></form></section>
+<section id="results" hidden tabindex="-1" aria-labelledby="results-title"><div class="section-heading"><div><span class="eyebrow">اختيارات على ذوقك</span><h2 id="results-title">ثلاثة عطور تستحق التجربة</h2><p id="summary"></p></div><button id="reset" class="text-button">تعديل اختياراتي ↗</button></div><p id="status" role="status" aria-live="polite"></p><div id="cards" class="cards"></div><p class="result-note">أسباب الترشيح مبنية على خصائص الكتالوج التجريبي. تجربة العطر على البشرة تساعدك على حسم اختيارك.</p></section>
+<dialog id="product-dialog"><button id="close-dialog" class="close" aria-label="إغلاق تفاصيل المنتج">×</button><span class="eyebrow">صفحة منتج تجريبية</span><div id="product-details"></div><p>هذا المنتج افتراضي للتجربة، ولا يتوفر للشراء.</p></dialog>
+</main><footer><span class="brand">ذائقة</span><p>اختيار أقرب لذوقك، في كل متجر.</p><span>نموذج تفاعلي · 2026</span></footer>
+<script src="catalog.js"></script><script src="engine.js"></script><script src="app.js"></script>
+</body></html>
